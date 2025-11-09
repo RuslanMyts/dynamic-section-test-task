@@ -1,13 +1,13 @@
 {% if block.settings.product %}
-    {% assign dynamic_product = block.settings.product %}
-    <div class="dynamic-section-block-item">
-        <div class="dynamic-section-block-item---media">
-    
-        </div>
-        <div class="dynamic-section-block-item---content">
-            {% if block.settings.show_title %}
-              <h2>{{ dynamic_product.title }}</h2>
-            {% endif %}
-        </div>
+  {% assign dynamic_product = block.settings.product %}
+  <div class="dynamic-section-block-item">
+    <div class="dynamic-section-block-item---media"></div>
+    <div class="dynamic-section-block-item---content">
+      {% if block.settings.show_title %}
+        <h2 class="product__title {{ block.settings.title_size }}" {{ block.shopify_attributes }}>
+            {{ dynamic_product.title | escape }}
+        </h2>
+      {% endif %}
     </div>
+  </div>
 {% endif %}
