@@ -57,6 +57,7 @@
           "settings": {
             "product": "womens-long-cardigan",
             "show_title": true,
+            "title_size": "h1",
             "show_price": true,
             "show_variant_picker": true,
             "show_quantity_selector": true,
