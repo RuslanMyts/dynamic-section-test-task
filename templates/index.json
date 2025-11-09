@@ -56,6 +56,8 @@
           "type": "dynamic-block",
           "settings": {
             "product": "womens-long-cardigan",
+            "start_date": "",
+            "end_date": "",
             "media_size": "small",
             "media_position": "left",
             "image_zoom": "lightbox",
@@ -132,6 +134,7 @@
         "buy_buttons_pEMmY8",
         "share_QYR7jd"
       ],
+      "disabled": true,
       "name": "t:sections.featured-product.presets.name",
       "settings": {
         "product": "womens-long-cardigan",
