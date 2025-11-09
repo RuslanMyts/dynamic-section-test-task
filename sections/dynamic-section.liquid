@@ -70,10 +70,10 @@
           "content": "Offer"
         },
         {
-            "type": "checkbox",
-            "id": "apply_offer",
-            "label": "Apply offer",
-            "default": false
+          "type": "checkbox",
+          "id": "apply_offer",
+          "label": "Apply offer",
+          "default": false
         },
         {
           "type": "select",
@@ -112,6 +112,12 @@
           ],
           "default": "percentage",
           "label": "Discount type"
+        },
+        {
+          "type": "number",
+          "visible_if": "{{ block.settings.apply_offer == true and block.settings.product != blank and block.settings.offer_type == 'discount' }}",
+          "id": "discount_amount",
+          "label": "Discount Amount"
         },
         {
           "type": "header",
