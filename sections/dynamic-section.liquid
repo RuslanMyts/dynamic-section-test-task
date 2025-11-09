@@ -1,6 +1,6 @@
 <div class="dynamic-section-blocks">
     {% for block in section.blocks %}
-      
+      {% render 'dynamic-block', block: block %}
     {% endfor %}
 </div>
 
