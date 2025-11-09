@@ -56,11 +56,30 @@
           "type": "dynamic-block",
           "settings": {
             "product": "womens-long-cardigan",
-            "start_date": "2025-11-08",
+            "start_date": "2025-11-06",
             "end_date": "2025-11-10",
             "media_size": "small",
             "media_position": "left",
-            "image_zoom": "hover",
+            "show_title": true,
+            "title_size": "h1",
+            "show_price": true,
+            "show_variant_picker": true,
+            "picker_type": "button",
+            "swatch_shape": "circle",
+            "show_quantity_selector": true,
+            "show_buy_button": true,
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "dynamic_block_JU88Nz": {
+          "type": "dynamic-block",
+          "settings": {
+            "product": "gift",
+            "start_date": "",
+            "end_date": "",
+            "media_size": "medium",
+            "media_position": "left",
             "show_title": true,
             "title_size": "h1",
             "show_price": true,
@@ -75,7 +94,8 @@
         }
       },
       "block_order": [
-        "dynamic_block_xKrLmE"
+        "dynamic_block_xKrLmE",
+        "dynamic_block_JU88Nz"
       ],
       "name": "Dynamic section",
       "settings": {}

@@ -16,7 +16,7 @@
         {% endif %}
       {% else %}
         {% if start <= current_time and current_time <= end %}
-          {% if start > latest_start %}
+          {% if start < latest_start %}
             {% assign latest_start = start %}
             {% assign active_block = block %}
           {% endif %}
