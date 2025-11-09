@@ -38,6 +38,7 @@
         {%- endif -%}
       {% endif %}
       {% if block.settings.show_variant_picker %}
+        {%- assign product_form_id = 'product-form-' | append: section.id -%}
         {% render 'product-variant-picker',
             product: dynamic_product,
             block: block,
