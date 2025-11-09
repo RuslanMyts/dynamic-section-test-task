@@ -1,4 +1,5 @@
 {% if block.settings.product %}
+  {% assign dynamic_product = block.settings.product %}
     {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
   {{ 'section-featured-product.css' | asset_url | stylesheet_tag }}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
@@ -14,8 +15,25 @@
     <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
+  {%- assign first_3d_model = dynamic_product.media | where: 'media_type', 'model' | first -%}
+  {%- if first_3d_model -%}
+    {{ 'component-product-model.css' | asset_url | stylesheet_tag }}
+    <link
+      id="ModelViewerStyle"
+      rel="stylesheet"
+      href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css"
+      media="print"
+      onload="this.media='all'"
+    >
+    <link
+      id="ModelViewerOverride"
+      rel="stylesheet"
+      href="{{ 'component-model-viewer-ui.css' | asset_url }}"
+      media="print"
+      onload="this.media='all'"
+    >
+  {%- endif -%}
 
-  {% assign dynamic_product = block.settings.product %}
   <div class="dynamic-section-block-item">
     <div class="dynamic-section-block-item---media"></div>
     <div class="dynamic-section-block-item---content">
