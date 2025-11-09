@@ -1,6 +1,6 @@
 {% if block.settings.product != blank %}
   {% assign dynamic_product = block.settings.product %}
-    {%- assign product_form_id = 'product-form-' | append: section.id -%}
+  {%- assign product_form_id = 'product-form-' | append: section.id -%}
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
   {{ 'section-featured-product.css' | asset_url | stylesheet_tag }}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
