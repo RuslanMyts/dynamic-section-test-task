@@ -60,6 +60,8 @@
             "title_size": "h1",
             "show_price": true,
             "show_variant_picker": true,
+            "picker_type": "button",
+            "swatch_shape": "circle",
             "show_quantity_selector": true,
             "show_buy_button": true
           }
