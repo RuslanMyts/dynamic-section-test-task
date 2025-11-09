@@ -1,3 +1,9 @@
+<div class="dynamic-section-blocks">
+    {% for block in section.blocks %}
+      
+    {% endfor %}
+</div>
+
 {% schema %}
 {
   "name": "Dynamic section",
@@ -9,6 +15,11 @@
       "type": "dynamic-block",
       "name": "Dynamic block",
       "settings": [
+        {
+            "type": "product",
+            "id": "product",
+            "label": "Product"
+        },
         {
           "type": "checkbox",
           "id": "show_title",
