@@ -105,7 +105,7 @@
       ],
       "name": "t:sections.featured-product.presets.name",
       "settings": {
-        "product": "",
+        "product": "womens-long-cardigan",
         "color_scheme": "",
         "secondary_background": false,
         "media_size": "medium",
