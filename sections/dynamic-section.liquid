@@ -9,7 +9,7 @@
     {% if start != '' %}
       {% if end == 'no limit' %}
         {% if start <= current_time %}
-          {% if start > latest_start %}
+          {% if start < latest_start %}
             {% assign latest_start = start %}
             {% assign active_block = block %}
           {% endif %}
