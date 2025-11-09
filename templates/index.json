@@ -49,6 +49,11 @@
         "show_text_below": false
       }
     },
+    "dynamic_section_8FCUge": {
+      "type": "dynamic-section",
+      "name": "Dynamic section",
+      "settings": {}
+    },
     "featured_product_ThQRJM": {
       "type": "featured-product",
       "blocks": {
@@ -122,6 +127,7 @@
   },
   "order": [
     "image_banner",
+    "dynamic_section_8FCUge",
     "featured_product_ThQRJM"
   ]
 }
