@@ -1,4 +1,6 @@
 <div class="dynamic-section-blocks">
+    {% assign current_time = 'now' | date: "%Y-%m-%d %H:%M:%S" %}
+    {{ current_time }}
   {% for block in section.blocks %}
     {% render 'dynamic-block', block: block %}
   {% endfor %}
