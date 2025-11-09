@@ -38,7 +38,8 @@
     <div class="dynamic-section-block-item---media">
       <div class="featured-product product product--{{ block.settings.media_size }} grid grid--1-col gradient product--{{ block.settings.media_position }} {% if dynamic_product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
         <div class="grid__item product__media-wrapper">
-
+            {% assign variant_images = dynamic_product.images | where: 'attached_to_variant?', true | map: 'src' %}
+            {% render 'product-media-gallery', product: dynamic_product, variant_images: variant_images, limit: 1 %}
         </div>
       </div>
     </div>
