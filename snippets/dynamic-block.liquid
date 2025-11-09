@@ -60,7 +60,7 @@
           </h2>
         {% endif %}
         {% if block.settings.show_price %}
-          <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+          <div id="price-{{ block.id }}" role="status" {{ block.shopify_attributes }}>
             {%- render 'price',
               product: dynamic_product,
               use_variant: true,
