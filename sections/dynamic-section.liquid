@@ -1,26 +1,34 @@
 <div class="dynamic-section-blocks">
-  {% assign current_time = 'now' | date: "%Y-%m-%d %H:%M:%S" %}
-  {% assign active_block = nil %}
+  {% assign current_time = 'now' | date: '%Y-%m-%d %H:%M:%S' %}
+  {% assign active_block = null %}
   {% assign latest_start = '0000-00-00 00:00:00' %}
 
   {% for block in section.blocks %}
     {% assign start = block.settings.start_date | default: '' %}
-    {% assign end = block.settings.end_date | default: '' %}
-    {% if start != '' and end != '' %}
-      {% if start <= current_time and current_time <= end %}
-        {% if start > latest_start %}
-          {% assign latest_start = start %}
-          {% assign active_block = block %}
+    {% assign end = block.settings.end_date | default: 'no limit' %}
+    {% if start != '' %}
+      {% if end == 'no limit' %}
+        {% if start <= current_time %}
+          {% if start > latest_start %}
+            {% assign latest_start = start %}
+            {% assign active_block = block %}
+          {% endif %}
+        {% endif %}
+      {% elsif condition %}
+        {% if start <= current_time and current_time <= end %}
+          {% if start > latest_start %}
+            {% assign latest_start = start %}
+            {% assign active_block = block %}
+          {% endif %}
         {% endif %}
       {% endif %}
     {% endif %}
   {% endfor %}
-  
+
   {% if active_block %}
     {% render 'dynamic-block', block: active_block %}
   {% endif %}
 </div>
-
 
 {% schema %}
 {
@@ -43,27 +51,27 @@
           "label": "Product"
         },
         {
-            "type": "text",
-            "visible_if": "{{ block.settings.product != blank }}",
-            "id": "start_date",
-            "label": "Start Date",
-            "info": "YY-MM-DD HH:MM:SS"
+          "type": "text",
+          "visible_if": "{{ block.settings.product != blank }}",
+          "id": "start_date",
+          "label": "Start Date",
+          "info": "YY-MM-DD HH:MM:SS"
         },
         {
-            "type": "text",
-            "visible_if": "{{ block.settings.product != blank }}",
-            "id": "end_date",
-            "label": "End Date",
-            "info": "YY-MM-DD HH:MM:SS"
+          "type": "text",
+          "visible_if": "{{ block.settings.product != blank }}",
+          "id": "end_date",
+          "label": "End Date",
+          "info": "YY-MM-DD HH:MM:SS"
         },
         {
           "type": "header",
-            "visible_if": "{{ block.settings.product != blank }}",
+          "visible_if": "{{ block.settings.product != blank }}",
           "content": "Media"
         },
         {
           "type": "select",
-            "visible_if": "{{ block.settings.product != blank }}",
+          "visible_if": "{{ block.settings.product != blank }}",
           "id": "media_size",
           "options": [
             {
@@ -84,7 +92,7 @@
         },
         {
           "type": "select",
-            "visible_if": "{{ block.settings.product != blank }}",
+          "visible_if": "{{ block.settings.product != blank }}",
           "id": "media_position",
           "options": [
             {
@@ -101,7 +109,7 @@
         },
         {
           "type": "select",
-            "visible_if": "{{ block.settings.product != blank }}",
+          "visible_if": "{{ block.settings.product != blank }}",
           "id": "image_zoom",
           "options": [
             {
@@ -122,12 +130,12 @@
         },
         {
           "type": "header",
-            "visible_if": "{{ block.settings.product != blank }}",
+          "visible_if": "{{ block.settings.product != blank }}",
           "content": "Title"
         },
         {
           "type": "checkbox",
-            "visible_if": "{{ block.settings.product != blank }}",
+          "visible_if": "{{ block.settings.product != blank }}",
           "id": "show_title",
           "label": "Show title",
           "default": true
@@ -163,24 +171,24 @@
         },
         {
           "type": "header",
-            "visible_if": "{{ block.settings.product != blank }}",
+          "visible_if": "{{ block.settings.product != blank }}",
           "content": "Price"
         },
         {
           "type": "checkbox",
-            "visible_if": "{{ block.settings.product != blank }}",
+          "visible_if": "{{ block.settings.product != blank }}",
           "id": "show_price",
           "label": "Show price",
           "default": true
         },
         {
           "type": "header",
-            "visible_if": "{{ block.settings.product != blank }}",
+          "visible_if": "{{ block.settings.product != blank }}",
           "content": "Variant Picker"
         },
         {
           "type": "checkbox",
-            "visible_if": "{{ block.settings.product != blank }}",
+          "visible_if": "{{ block.settings.product != blank }}",
           "id": "show_variant_picker",
           "label": "Show variant picker",
           "default": true
@@ -226,24 +234,24 @@
         },
         {
           "type": "header",
-            "visible_if": "{{ block.settings.product != blank }}",
+          "visible_if": "{{ block.settings.product != blank }}",
           "content": "Quantity Selector"
         },
         {
           "type": "checkbox",
-            "visible_if": "{{ block.settings.product != blank }}",
+          "visible_if": "{{ block.settings.product != blank }}",
           "id": "show_quantity_selector",
           "label": "Show quantity selector",
           "default": true
         },
         {
           "type": "header",
-            "visible_if": "{{ block.settings.product != blank }}",
+          "visible_if": "{{ block.settings.product != blank }}",
           "content": "Buy Button"
         },
         {
           "type": "checkbox",
-            "visible_if": "{{ block.settings.product != blank }}",
+          "visible_if": "{{ block.settings.product != blank }}",
           "id": "show_buy_button",
           "label": "Show Buy button",
           "default": true
