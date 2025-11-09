@@ -51,6 +51,21 @@
     },
     "dynamic_section_8FCUge": {
       "type": "dynamic-section",
+      "blocks": {
+        "dynamic_block_xKrLmE": {
+          "type": "dynamic-block",
+          "settings": {
+            "show_title": true,
+            "show_price": true,
+            "show_variant_picker": true,
+            "show_quantity_selector": true,
+            "show_buy_button": true
+          }
+        }
+      },
+      "block_order": [
+        "dynamic_block_xKrLmE"
+      ],
       "name": "Dynamic section",
       "settings": {}
     },
