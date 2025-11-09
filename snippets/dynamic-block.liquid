@@ -1,5 +1,6 @@
 {% if block.settings.product != blank %}
   {% assign dynamic_product = block.settings.product %}
+  {%- assign product_form_id = 'product-form-' | append: block.id -%}
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
   {{ 'section-featured-product.css' | asset_url | stylesheet_tag }}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
@@ -88,7 +89,6 @@
           {%- endif -%}
         {% endif %}
         {% if block.settings.show_variant_picker %}
-          {%- assign product_form_id = 'product-form-' | append: section.id -%}
           {% render 'product-variant-picker',
             product: dynamic_product,
             block: block,
