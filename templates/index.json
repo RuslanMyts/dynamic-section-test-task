@@ -63,7 +63,7 @@
             "discount_type": "percentage",
             "gift_product": "",
             "media_size": "small",
-            "media_position": "left",
+            "media_position": "right",
             "show_title": true,
             "title_size": "h1",
             "show_price": true,

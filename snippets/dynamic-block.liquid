@@ -1,7 +1,7 @@
 {% if block.settings.product != blank %}
   {% assign dynamic_product = block.settings.product %}
   {% assign content_order = 'media, content' %}
-  {% if block.settings.media_position == right %}
+  {% if block.settings.media_position == 'right' %}
       {% assign content_order = 'content, media' %}
   {% endif %}
   {% assign content_order = content_order | split: ", " %}
