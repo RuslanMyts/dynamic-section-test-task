@@ -162,13 +162,14 @@
         },
         {
           "type": "checkbox",
+            "visible_if": "{{ block.settings.product != blank }}",
           "id": "show_variant_picker",
           "label": "Show variant picker",
           "default": true
         },
         {
           "type": "select",
-          "visible_if": "{{ block.settings.show_variant_picker == true }}",
+          "visible_if": "{{ block.settings.show_variant_picker == true and block.settings.product != blank }}",
           "id": "picker_type",
           "options": [
             {
