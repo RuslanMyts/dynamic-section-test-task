@@ -1,10 +1,26 @@
 <div class="dynamic-section-blocks">
-    {% assign current_time = 'now' | date: "%Y-%m-%d %H:%M:%S" %}
-    
+  {% assign current_time = 'now' | date: "%Y-%m-%d %H:%M:%S" %}
+  {% assign active_block = nil %}
+  {% assign latest_start = '0000-00-00 00:00:00' %}
+
   {% for block in section.blocks %}
-    {% render 'dynamic-block', block: block %}
+    {% assign start = block.settings.start_date | default: '' %}
+    {% assign end = block.settings.end_date | default: '' %}
+    {% if start != '' and end != '' %}
+      {% if start <= current_time and current_time <= end %}
+        {% if start > latest_start %}
+          {% assign latest_start = start %}
+          {% assign active_block = block %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
   {% endfor %}
+  
+  {% if active_block %}
+    {% render 'dynamic-block', block: active_block %}
+  {% endif %}
 </div>
+
 
 {% schema %}
 {
