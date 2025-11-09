@@ -289,6 +289,14 @@
           {%- endif -%}
         </div>
       {% endif %}
+      {% if block.settings.show_buy_button %}
+        {%- render 'buy-buttons',
+            block: block,
+            product: dynamic_product,
+            product_form_id: product_form_id,
+            section_id: section.id
+        -%}
+      {% endif %}
     </div>
   </div>
 {% endif %}
