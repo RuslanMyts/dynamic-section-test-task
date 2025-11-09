@@ -97,6 +97,23 @@
           "label": "Offer Type"
         },
         {
+          "type": "select",
+          "visible_if": "{{ block.settings.apply_offer == true and block.settings.product != blank and block.settings.offer_type == 'discount' }}",
+          "id": "discount_type",
+          "options": [
+            {
+              "value": "percentage",
+              "label": "Percentage"
+            },
+            {
+              "value": "fixed",
+              "label": "Fixed"
+            }
+          ],
+          "default": "percentage",
+          "label": "Discount type"
+        },
+        {
           "type": "header",
           "visible_if": "{{ block.settings.product != blank }}",
           "content": "Media"
