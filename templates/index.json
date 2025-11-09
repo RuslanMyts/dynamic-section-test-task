@@ -55,6 +55,7 @@
         "dynamic_block_xKrLmE": {
           "type": "dynamic-block",
           "settings": {
+            "product": "womens-long-cardigan",
             "show_title": true,
             "show_price": true,
             "show_variant_picker": true,
