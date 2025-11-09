@@ -186,7 +186,7 @@
         },
         {
           "id": "swatch_shape",
-          "visible_if": "{{ block.settings.show_variant_picker == true }}",
+          "visible_if": "{{ block.settings.show_variant_picker == true and block.settings.product != blank }}",
           "label": "t:sections.featured-product.blocks.variant_picker.settings.swatch_shape.label",
           "type": "select",
           "info": "t:sections.featured-product.blocks.variant_picker.settings.swatch_shape.info",
@@ -232,7 +232,7 @@
         },
         {
           "type": "checkbox",
-          "visible_if": "{{ block.settings.show_buy_button == true }}",
+          "visible_if": "{{ block.settings.show_buy_button == true and block.settings.product != blank }}",
           "id": "show_dynamic_checkout",
           "default": true,
           "label": "t:sections.featured-product.blocks.buy_buttons.settings.show_dynamic_checkout.label",
@@ -240,7 +240,7 @@
         },
         {
           "type": "checkbox",
-          "visible_if": "{{ block.settings.show_buy_button == true }}",
+          "visible_if": "{{ block.settings.show_buy_button == true and block.settings.product != blank }}",
           "id": "show_gift_card_recipient",
           "default": true,
           "label": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.label",
