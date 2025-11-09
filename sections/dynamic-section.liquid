@@ -1,20 +1,51 @@
-
-
 {% schema %}
+{
+  "name": "Dynamic section",
+  "tag": "section",
+  "class": "dynamic-section",
+  "settings": [],
+  "blocks": [
     {
-        "name": "Dynamic section",
-        "tag": "section",
-        "class": "dynamic-section",
-        "settings": [
-
-        ],
-        "blocks": [
-
-        ],
-        "presets": [
-            {
-                "name": "Dynamic section"
-            } 
-        ]
+      "type": "dynamic-block",
+      "name": "Dynamic block",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_title",
+          "label": "Show title",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_price",
+          "label": "Show price",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_variant_picker",
+          "label": "Show variant picker",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_quantity_selector",
+          "label": "Show quantity selector",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_buy_button",
+          "label": "Show Buy button",
+          "default": true
+        }
+      ]
     }
+  ],
+  "presets": [
+    {
+      "name": "Dynamic section"
+    }
+  ]
+}
 {% endschema %}
