@@ -1,4 +1,4 @@
-{% if block.settings.product %}
+{% if block.settings.product != blank %}
   {% assign dynamic_product = block.settings.product %}
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
   {{ 'section-featured-product.css' | asset_url | stylesheet_tag }}
