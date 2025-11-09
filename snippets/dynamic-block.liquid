@@ -36,10 +36,10 @@
 
   <product-info
     data-section="{{ section.id }}"
-    data-product-id="{{ product.id }}"
+    data-product-id="{{ dynamic_product.id }}"
     data-update-url="false"
-    data-url="{{ product.url }}"
-    {% if section.settings.image_zoom == 'hover' %}
+    data-url="{{ dynamic_product.url }}"
+    {% if block.settings.image_zoom == 'hover' %}
       data-zoom-on-hover
     {% endif %}
   >
