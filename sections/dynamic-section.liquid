@@ -116,7 +116,7 @@
         },
         {
           "type": "select",
-          "visible_if": "{{ block.settings.show_title == true }}",
+          "visible_if": "{{ block.settings.show_title == true and block.settings.product != blank  }}",
           "id": "title_size",
           "options": [
             {
