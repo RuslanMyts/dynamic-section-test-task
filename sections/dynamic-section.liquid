@@ -1,7 +1,7 @@
 <div class="dynamic-section-blocks">
   {% assign current_time = 'now' | date: '%Y-%m-%d %H:%M:%S' %}
   {% assign active_block = null %}
-  {% assign latest_start = '0000-00-00 00:00:00' %}
+  {% assign latest_start = current_time %}
 
   {% for block in section.blocks %}
     {% assign start = block.settings.start_date | default: '' %}
