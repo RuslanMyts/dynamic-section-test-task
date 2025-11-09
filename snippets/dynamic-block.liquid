@@ -7,7 +7,7 @@
         {% render 'dynamic-price' %}
       {% endif %}
       {% if block.settings.show_price %}
-        <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+        {% comment %} <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
             {%- render 'price',
                 product: product,
                 placeholder: placeholder,
@@ -42,7 +42,7 @@
                 {{ form | payment_terms }}
                 {%- endform -%}
             </div>
-        {%- endunless -%}
+        {%- endunless -%} {% endcomment %}
       {% endif %}
     </div>
   </div>
