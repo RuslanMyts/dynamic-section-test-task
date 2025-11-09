@@ -4,7 +4,7 @@
   {% if block.settings.media_position == right %}
       {% assign content_order = 'content, media' %}
   {% endif %}
-  {% assign content_order = content_order | split: "," %}
+  {% assign content_order = content_order | split: ", " %}
   {%- assign product_form_id = 'product-form-' | append: section.id -%}
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
   {{ 'section-featured-product.css' | asset_url | stylesheet_tag }}
