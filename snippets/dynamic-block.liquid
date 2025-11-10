@@ -432,29 +432,39 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const timerContainer = document.querySelector(".countdown-timer");
-        if (!timerContainer) return;
+        document.addEventListener("DOMContentLoaded", function() {
+  const timers = document.querySelectorAll(".countdown-timer");
 
-        const timerBar = timerContainer.querySelector(".timer-bar");
+  timers.forEach(timerContainer => {
+    const timerBar = timerContainer.querySelector(".timer-bar");
+    const countdownText = timerContainer.querySelector(".countdown-text");
 
-        const currentTime = new Date(timerContainer.dataset.currentTime).getTime();
-        const endTime = new Date(timerContainer.dataset.endTime).getTime();
+    const currentTime = new Date(timerContainer.dataset.currentTime).getTime();
+    const endTime = new Date(timerContainer.dataset.endTime).getTime();
 
-        let now = Date.now();
-        let offset = now - currentTime; // difference between server time and client time
-        let duration = endTime - currentTime;
+    let duration = endTime - currentTime;
 
-        function updateBar() {
-            let elapsed = Date.now() - currentTime - offset;
-            let progress = Math.min((elapsed / duration) * 100, 100);
-            timerBar.style.width = progress + "%";
+    function updateBar() {
+      let now = Date.now();
+      let elapsed = now - currentTime;
+      let progress = Math.min((elapsed / duration) * 100, 100);
+      timerBar.style.width = progress + "%";
 
-            if (progress < 100) {
-            requestAnimationFrame(updateBar);
-            }
-        }
+      let remaining = Math.max(endTime - now, 0);
+      let hours = Math.floor(remaining / 3600000);
+      let minutes = Math.floor((remaining % 3600000) / 60000);
+      let seconds = Math.floor((remaining % 60000) / 1000);
+      countdownText.innerText = `${hours}h ${minutes}m ${seconds}s`;
 
-        updateBar();
+      if (progress < 100) {
+        requestAnimationFrame(updateBar);
+      }
+    }
+
+    updateBar();
+  });
+});
+
     });
   </script>
 {% endif %}
