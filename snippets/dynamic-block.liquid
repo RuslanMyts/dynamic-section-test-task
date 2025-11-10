@@ -467,12 +467,12 @@
 
             // Build countdown string without 0 units
             let parts = [];
-            if (years) parts.push(`${years}Y`);
-            if (months) parts.push(`${months}M`);
-            if (days) parts.push(`${days}D`);
-            if (hours) parts.push(`${hours}H`);
-            if (minutes) parts.push(`${minutes}M`);
-            if (seconds) parts.push(`${seconds}S`);
+            if (years) parts.push(`${years}Year`);
+            if (months) parts.push(`${months}Month`);
+            if (days) parts.push(`${days}Day`);
+            if (hours) parts.push(`${hours}Hour`);
+            if (minutes) parts.push(`${minutes}Minute`);
+            if (seconds) parts.push(`${seconds}Second`);
 
             countdownText.innerText = parts.join(' ') || '0S';
           }
