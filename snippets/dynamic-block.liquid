@@ -433,37 +433,52 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const timers = document.querySelectorAll(".countdown-timer");
+  const timers = document.querySelectorAll(".countdown-timer");
 
-        timers.forEach(timerContainer => {
-            const timerBar = timerContainer.querySelector(".timer-bar");
-            const countdownText = timerContainer.querySelector(".countdown-text");
+  timers.forEach(timerContainer => {
+    const timerBar = timerContainer.querySelector(".timer-bar");
+    const countdownText = timerContainer.querySelector(".countdown-text");
 
-            const currentTime = new Date(timerContainer.dataset.currentTime).getTime();
-            const endTime = new Date(timerContainer.dataset.endTime).getTime();
+    const currentTime = new Date(timerContainer.dataset.currentTime).getTime();
+    const endTime = new Date(timerContainer.dataset.endTime).getTime();
 
-            let duration = endTime - currentTime;
+    let duration = endTime - currentTime;
 
-            function updateBar() {
-            let now = Date.now();
-            let elapsed = now - currentTime;
-            let progress = Math.min((elapsed / duration) * 100, 100);
-            timerBar.style.width = progress + "%";
+    function updateBar() {
+      let now = Date.now();
+      let elapsed = now - currentTime;
+      let progress = Math.min((elapsed / duration) * 100, 100);
+      timerBar.style.width = progress + "%";
 
-            let remaining = Math.max(endTime - now, 0);
-            let hours = Math.floor(remaining / 3600000);
-            let minutes = Math.floor((remaining % 3600000) / 60000);
-            let seconds = Math.floor((remaining % 60000) / 1000);
-            countdownText.innerText = `${hours}h ${minutes}m ${seconds}s`;
+      if (countdownText) {
+        let remaining = Math.max(endTime - now, 0);
 
-            if (progress < 100) {
-                requestAnimationFrame(updateBar);
-            }
-            }
+        // Calculate time components
+        let seconds = Math.floor(remaining / 1000);
+        let minutes = Math.floor(seconds / 60);
+        let hours = Math.floor(minutes / 60);
+        let days = Math.floor(hours / 24);
+        let months = Math.floor(days / 30); // approximate
+        let years = Math.floor(days / 365); // approximate
 
-            updateBar();
-        });
-    });
+        // Reduce components
+        days = days % 365;
+        hours = hours % 24;
+        minutes = minutes % 60;
+        seconds = seconds % 60;
+
+        countdownText.innerText = `${years}Y ${months}M ${days}D ${hours}H ${minutes}M ${seconds}S`;
+      }
+
+      if (progress < 100) {
+        requestAnimationFrame(updateBar);
+      }
+    }
+
+    updateBar();
+  });
+});
+
 
   </script>
 {% endif %}
