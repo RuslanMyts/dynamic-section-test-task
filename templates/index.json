@@ -20,7 +20,7 @@
             "end_date": "2025-11-21",
             "apply_offer": true,
             "offer_type": "discount",
-            "discount_type": "fixed",
+            "discount_type": "percentage",
             "discount_amount": 20,
             "gift_product": "gift",
             "media_size": "small",
