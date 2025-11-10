@@ -49,6 +49,35 @@
       data-zoom-on-hover
     {% endif %}
   >
+    {% if block.settings.apply_offer == true %}
+        <div
+            class="countdown-wrapper"
+            data-current-time="{{ 'now' | date: '%Y-%m-%d %H:%M:%S' }}"
+            data-end-time="{{ block.settings.end_date }}"
+            >
+            <div class="countdown-header">
+                ⚡ Limited-time offer! Sale ends in
+            </div>
+            <div class="countdown-timer">
+                <div class="countdown-segment">
+                <div class="countdown-value" id="days">00</div>
+                <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-segment">
+                <div class="countdown-value" id="hours">00</div>
+                <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-segment">
+                <div class="countdown-value" id="minutes">00</div>
+                <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-segment">
+                <div class="countdown-value" id="seconds">00</div>
+                <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
     <div class="dynamic-section-block-item">
       {% capture block_item_media %}
           <div class="dynamic-section-block-item---media">
@@ -63,38 +92,6 @@
 
       {% capture block_item_content %}
             <div class="dynamic-section-block-item---content">
-                {% if block.settings.apply_offer == true %}
-                    <div
-                        class="countdown-wrapper"
-                        data-current-time="{{ 'now' | date: '%Y-%m-%d %H:%M:%S' }}"
-                        data-end-time="{{ block.settings.end_date }}"
-                        >
-                        <div class="countdown-header">
-                            ⚡ Limited-time offer! Sale ends in
-                        </div>
-                        <div class="countdown-timer">
-                            <div class="countdown-segment">
-                            <div class="countdown-value" id="days">00</div>
-                            <div class="countdown-label">Days</div>
-                            </div>
-                            <div class="countdown-segment">
-                            <div class="countdown-value" id="hours">00</div>
-                            <div class="countdown-label">Hours</div>
-                            </div>
-                            <div class="countdown-segment">
-                            <div class="countdown-value" id="minutes">00</div>
-                            <div class="countdown-label">Minutes</div>
-                            </div>
-                            <div class="countdown-segment">
-                            <div class="countdown-value" id="seconds">00</div>
-                            <div class="countdown-label">Seconds</div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                {% endif %}
-
                 {% if block.settings.show_title %}
                 <h2 class="product__title {{ block.settings.title_size }}" {{ block.shopify_attributes }}>
                     {{ dynamic_product.title | escape }}
