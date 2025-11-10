@@ -64,12 +64,34 @@
       {% capture block_item_content %}
             <div class="dynamic-section-block-item---content">
                 {% if block.settings.apply_offer == true %}
-                    <div class="countdown-timer" 
-                        data-current-time="{{ 'now' | date: '%Y-%m-%dT%H:%M:%S' }}" 
-                        data-end-time="{{ block.settings.end_date | date: '%Y-%m-%dT%H:%M:%S' }}">
-                        <div class="timer-bar" style="width:0%; height:5px; background:#f00;"></div>
-                        <div class="countdown-text"></div>
+                    <div
+                        class="countdown-wrapper"
+                        data-current-time="{{ 'now' | date: '%Y-%m-%d %H:%M:%S' }}"
+                        data-end-time="{{ block.settings.end_date }}"
+                        >
+                        <div class="countdown-header">
+                            ⚡ Limited-time offer! Sale ends in
+                        </div>
+                        <div class="countdown-timer">
+                            <div class="countdown-segment">
+                            <div class="countdown-value" id="days">00</div>
+                            <div class="countdown-label">Days</div>
+                            </div>
+                            <div class="countdown-segment">
+                            <div class="countdown-value" id="hours">00</div>
+                            <div class="countdown-label">Hours</div>
+                            </div>
+                            <div class="countdown-segment">
+                            <div class="countdown-value" id="minutes">00</div>
+                            <div class="countdown-label">Minutes</div>
+                            </div>
+                            <div class="countdown-segment">
+                            <div class="countdown-value" id="seconds">00</div>
+                            <div class="countdown-label">Seconds</div>
+                            </div>
+                        </div>
                     </div>
+
 
                 {% endif %}
 
@@ -427,63 +449,109 @@
             max-width: unset !important;
         }
     }
+
+    .countdown-wrapper {
+        text-align: center;
+        font-family: "Inter", sans-serif;
+        margin: 20px auto;
+    }
+
+    .countdown-header {
+        font-weight: 600;
+        margin-bottom: 15px;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .countdown-timer {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .countdown-segment {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .countdown-value {
+        background: #2563eb;
+        color: #fff;
+        font-size: 1.8rem;
+        font-weight: 700;
+        border-radius: 8px;
+        padding: 12px 18px;
+        min-width: 70px;
+    }
+
+    .countdown-label {
+        margin-top: 5px;
+        font-size: 0.8rem;
+        color: #555;
+    }
   {% endstyle %}
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const timers = document.querySelectorAll('.countdown-timer');
+      const wrapper = document.querySelector('.countdown-wrapper');
+      if (!wrapper) return;
 
-      timers.forEach((timerContainer) => {
-        const timerBar = timerContainer.querySelector('.timer-bar');
-        const countdownText = timerContainer.querySelector('.countdown-text');
+      const currentTimeStr = wrapper.dataset.currentTime.trim().replace(' ', 'T');
+      const endTimeStr = wrapper.dataset.endTime.trim().replace(' ', 'T');
 
-        const currentTime = new Date(timerContainer.dataset.currentTime).getTime();
-        const endTime = new Date(timerContainer.dataset.endTime).getTime();
+      let serverNow = new Date(currentTimeStr).getTime();
+      let endTime = new Date(endTimeStr).getTime();
 
-        let duration = endTime - currentTime;
+      // If no time provided, assume midnight
+      if (endTimeStr.length <= 10) {
+        const temp = new Date(endTimeStr + 'T00:00:00');
+        if (!isNaN(temp)) endTime = temp.getTime();
+      }
 
-        function updateBar() {
-          let now = Date.now();
-          let elapsed = now - currentTime;
-          let progress = Math.min((elapsed / duration) * 100, 100);
-          timerBar.style.width = progress + '%';
+      if (isNaN(serverNow) || isNaN(endTime)) return;
 
-          if (countdownText) {
-            let remaining = Math.max(endTime - now, 0);
+      const clientNow = Date.now();
+      const offset = clientNow - serverNow;
 
-            // Convert to time units
-            let seconds = Math.floor(remaining / 1000);
-            let minutes = Math.floor(seconds / 60);
-            let hours = Math.floor(minutes / 60);
-            let days = Math.floor(hours / 24);
-            let months = Math.floor(days / 30); // approximate
-            let years = Math.floor(days / 365); // approximate
+      const daysEl = wrapper.querySelector('#days');
+      const hoursEl = wrapper.querySelector('#hours');
+      const minutesEl = wrapper.querySelector('#minutes');
+      const secondsEl = wrapper.querySelector('#seconds');
 
-            // Reduce components
-            days = days % 365;
-            hours = hours % 24;
-            minutes = minutes % 60;
-            seconds = seconds % 60;
+      function updateCountdown() {
+        const now = Date.now() - offset;
+        let remaining = endTime - now;
 
-            // Build countdown string without 0 units
-            let parts = [];
-            if (years) parts.push(`${years}Year`);
-            if (months) parts.push(`${months}Month`);
-            if (days) parts.push(`${days}Day`);
-            if (hours) parts.push(`${hours}Hour`);
-            if (minutes) parts.push(`${minutes}Minute`);
-            if (seconds) parts.push(`${seconds}Second`);
-
-            countdownText.innerText = parts.join(' ') || '0S';
-          }
-
-          if (progress < 100) {
-            requestAnimationFrame(updateBar);
-          }
+        if (remaining <= 0) {
+          daysEl.textContent = hoursEl.textContent = minutesEl.textContent = secondsEl.textContent = '00';
+          wrapper.querySelector('.countdown-header').textContent = 'Offer expired!';
+          return;
         }
 
-        updateBar();
-      });
+        const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
+        remaining %= 1000 * 60 * 60 * 24;
+
+        const hours = Math.floor(remaining / (1000 * 60 * 60));
+        remaining %= 1000 * 60 * 60;
+
+        const minutes = Math.floor(remaining / (1000 * 60));
+        remaining %= 1000 * 60;
+
+        const seconds = Math.floor(remaining / 1000);
+
+        daysEl.textContent = String(days).padStart(2, '0');
+        hoursEl.textContent = String(hours).padStart(2, '0');
+        minutesEl.textContent = String(minutes).padStart(2, '0');
+        secondsEl.textContent = String(seconds).padStart(2, '0');
+
+        requestAnimationFrame(updateCountdown);
+      }
+
+      updateCountdown();
     });
   </script>
 {% endif %}
