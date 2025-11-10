@@ -23,6 +23,22 @@
 
   assign compare_at_price = target.compare_at_price
   assign price = target.price | default: 1999
+
+  if discount_type != blank
+    if compare_at_price != blank
+        assign compare_at_price = price
+    endif
+
+    if discount_type == "percentage"
+        assign discount = discount_amount | divided_by : 100
+        assign discount = price | times: discount
+        assign price = price | minus: discount
+    elsif discount_type == "fixed"
+        assign discount = discount_amount | times : 100
+        assign price = price | minus : discount
+    endif
+  endif
+
   assign price_min = product.price_min
   assign price_max = product.price_max
   assign available = target.available | default: false
@@ -38,11 +54,10 @@
   if target == product and product.price_varies
     assign money_price = 'products.product.price.from_price_html' | t: price: money_price
   endif
+
+  
 -%}
 
-{{ compare_at_price }}
-<br>
-{{ price }}
 
 {%- unless target == null and placeholder == null -%}
   <div
