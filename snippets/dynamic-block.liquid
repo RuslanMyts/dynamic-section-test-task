@@ -64,15 +64,15 @@
       {% capture block_item_content %}
             <div class="dynamic-section-block-item---content">
                 {% if block.settings.apply_offer == true %}
-                    {% assign current_time = 'now' | date: "%Y-%m-%d %H:%M:%S" %}
-                    {% assign end_date = block.settings.end_date %}
-    
-                    <div class="countdown-timer" 
-                        data-current-time="{{ current_time }}" 
-                        data-end-time="{{ end_date }}">
-                        <div class="timer-bar"></div>
-                        <div class="countdown-text"></div>
+                    <div
+                    class="countdown-timer"
+                    data-current-time="{{ 'now' | date: '%Y-%m-%d %H:%M:%S' }}"
+                    data-end-time="{{ block.settings.end_date }}"
+                    >
+                    <div class="timer-bar" style="width: 0%;"></div>
+                    <div class="countdown-text"></div>
                     </div>
+
                 {% endif %}
 
                 {% if block.settings.show_title %}
@@ -432,40 +432,51 @@
   {% endstyle %}
 
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
+   document.addEventListener("DOMContentLoaded", function () {
   const timers = document.querySelectorAll(".countdown-timer");
 
   timers.forEach(timerContainer => {
     const timerBar = timerContainer.querySelector(".timer-bar");
     const countdownText = timerContainer.querySelector(".countdown-text");
 
-    const serverNow = new Date(timerContainer.dataset.currentTime).getTime();
-    const endTime = new Date(timerContainer.dataset.endTime).getTime();
+    // Get times from Liquid
+    const serverNowString = timerContainer.dataset.currentTime.trim().replace(" ", "T");
+    const endTimeString = timerContainer.dataset.endTime.trim().replace(" ", "T");
 
+    const serverNow = new Date(serverNowString).getTime();
+    const endTime = new Date(endTimeString).getTime();
+
+    // If end date has no time, assume midnight
+    if (endTimeString.length <= 10) {
+      const temp = new Date(endTimeString + "T00:00:00");
+      if (!isNaN(temp)) endTime = temp.getTime();
+    }
+
+    if (isNaN(serverNow) || isNaN(endTime)) return;
+
+    // Adjust client offset relative to server time
     const clientNow = Date.now();
-    const offset = clientNow - serverNow; // client-server offset
+    const offset = clientNow - serverNow;
     const totalDuration = endTime - serverNow;
+
+    if (totalDuration <= 0) return;
 
     function updateBar() {
       const now = Date.now();
-      let remaining = Math.max(endTime - (now - offset), 0);
+      const adjustedNow = now - offset;
+      let remaining = Math.max(endTime - adjustedNow, 0);
       const elapsed = totalDuration - remaining;
       const progress = Math.min((elapsed / totalDuration) * 100, 100);
 
-      timerBar.style.width = progress + "%";
+      // Update progress bar
+      if (timerBar) timerBar.style.width = progress + "%";
 
+      // Calculate remaining time parts
       if (countdownText) {
-        // Step by step calculation
         let seconds = Math.floor(remaining / 1000);
 
-        const years = Math.floor(seconds / (365 * 24 * 3600));
-        seconds -= years * 365 * 24 * 3600;
-
-        const months = Math.floor(seconds / (30 * 24 * 3600));
-        seconds -= months * 30 * 24 * 3600;
-
-        const days = Math.floor(seconds / (24 * 3600));
-        seconds -= days * 24 * 3600;
+        const days = Math.floor(seconds / 86400);
+        seconds -= days * 86400;
 
         const hours = Math.floor(seconds / 3600);
         seconds -= hours * 3600;
@@ -473,24 +484,23 @@
         const minutes = Math.floor(seconds / 60);
         seconds -= minutes * 60;
 
-        // Build string without 0 values
+        // Build readable string without 0 values
         let parts = [];
-        if (years) parts.push(`${years}Y`);
-        if (months) parts.push(`${months}M`);
         if (days) parts.push(`${days}D`);
         if (hours) parts.push(`${hours}H`);
         if (minutes) parts.push(`${minutes}M`);
         if (seconds) parts.push(`${seconds}S`);
-
-        countdownText.innerText = parts.join(' ') || '0S';
+        countdownText.innerText = parts.join(" ") || "0S";
       }
 
-      if (progress < 100) requestAnimationFrame(updateBar);
+      if (remaining > 0) requestAnimationFrame(updateBar);
+      else countdownText.innerText = "Expired";
     }
 
     updateBar();
   });
 });
+
 
 
 
