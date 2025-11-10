@@ -109,6 +109,17 @@
                                 Free Shipping
                             </div>
                         {% endif %}
+                        
+                    </div>
+                {% endif %}
+                {% if block.settings.show_title %}
+                <h2 class="product__title {{ block.settings.title_size }}" {{ block.shopify_attributes }}>
+                    {{ dynamic_product.title | escape }}
+                </h2>
+                {% endif %}
+
+                {% if block.settings.apply_offer == true %}
+                    <div class="offer-badge">
                         {% if block.settings.discount == true %}
                             <div class="discount--badge">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 256 256" enable-background="new 0 0 256 256" xml:space="preserve">
@@ -124,11 +135,7 @@
                         {% endif %}
                     </div>
                 {% endif %}
-                {% if block.settings.show_title %}
-                <h2 class="product__title {{ block.settings.title_size }}" {{ block.shopify_attributes }}>
-                    {{ dynamic_product.title | escape }}
-                </h2>
-                {% endif %}
+
                 {% if block.settings.show_price %}
                     <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                         {%- render 'dynamic-price',
