@@ -19,7 +19,7 @@
             "start_date": "2025-11-08",
             "end_date": "2025-11-23",
             "apply_offer": true,
-            "offer_type": "free_shipping",
+            "offer_type": "discount",
             "discount_type": "percentage",
             "discount_amount": 20,
             "gift_product": "gift",
