@@ -101,10 +101,6 @@
             {
               "value": "discount",
               "label": "Discount"
-            },
-            {
-              "value": "gift",
-              "label": "Gift"
             }
           ],
           "default": "free_shipping",
@@ -132,12 +128,6 @@
           "visible_if": "{{ block.settings.apply_offer == true and block.settings.product != blank and block.settings.offer_type == 'discount' }}",
           "id": "discount_amount",
           "label": "Discount Amount"
-        },
-        {
-            "type": "product",
-            "id": "gift_product",
-            "label": "Gift Product",
-            "info": "Applies only when the discount type is 'Gift'."
         },
         {
           "type": "header",
