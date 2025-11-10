@@ -107,8 +107,20 @@
           "label": "Offer Type"
         },
         {
+          "type": "checkbox",
+          "id": "free_shipping",
+          "label": "Free Shipping",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "discount",
+          "label": "Discount",
+          "default": false
+        },
+        {
           "type": "select",
-          "visible_if": "{{ block.settings.apply_offer == true and block.settings.product != blank and block.settings.offer_type == 'discount' }}",
+          "visible_if": "{{ block.settings.apply_offer == true and block.settings.product != blank and block.settings.discount == true }}",
           "id": "discount_type",
           "options": [
             {
