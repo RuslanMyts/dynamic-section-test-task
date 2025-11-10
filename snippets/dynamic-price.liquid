@@ -24,18 +24,20 @@
   assign compare_at_price = target.compare_at_price
   assign price = target.price | default: 1999
 
-  if discount_type != blank
-    if compare_at_price != blank
-        assign compare_at_price = price
-    endif
+  if block.settings.apply_offer == true
+    if discount_type != blank
+        if compare_at_price != blank
+            assign compare_at_price = price
+        endif
 
-    if discount_type == "percentage"
-        assign discount_rate = discount_amount | divided_by: 100
-        assign discount_value = price | times: discount_rate
-        assign price = price | minus: discount_value 
-    elsif discount_type == "fixed"
-        assign discount = discount_amount | times : 100
-        assign price = price | minus : discount
+        if discount_type == "percentage"
+            assign discount_rate = discount_amount | divided_by: 100
+            assign discount_value = price | times: discount_rate
+            assign price = price | minus: discount_value 
+        elsif discount_type == "fixed"
+            assign discount = discount_amount | times : 100
+            assign price = price | minus : discount
+        endif
     endif
   endif
 
