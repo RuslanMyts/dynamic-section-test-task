@@ -20,6 +20,8 @@
             "end_date": "2025-11-23",
             "apply_offer": true,
             "offer_type": "free_shipping",
+            "free_shipping": false,
+            "discount": true,
             "discount_type": "percentage",
             "discount_amount": 25,
             "media_size": "small",
