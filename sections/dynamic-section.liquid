@@ -91,12 +91,14 @@
         },
         {
           "type": "checkbox",
+          "visible_if": "{{ block.settings.apply_offer == true }}",
           "id": "free_shipping",
           "label": "Free Shipping",
           "default": false
         },
         {
           "type": "checkbox",
+          "visible_if": "{{ block.settings.apply_offer == true }}",
           "id": "discount",
           "label": "Discount",
           "default": false
