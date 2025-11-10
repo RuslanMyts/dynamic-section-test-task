@@ -70,7 +70,7 @@
                 {% endif %}
                 {% if block.settings.show_price %}
                     <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
-                        {%- render 'price',
+                        {%- render 'dynamic-price',
                         product: dynamic_product,
                         use_variant: true,
                         show_badges: true,
