@@ -36,10 +36,35 @@
             "show_dynamic_checkout": true,
             "show_gift_card_recipient": true
           }
+        },
+        "dynamic_block_CYbqRb": {
+          "type": "dynamic-block",
+          "settings": {
+            "product": "mens-wireless-smart-watch-with-100-sport-modes-full-touch-screen-activity-tracker-pedometer-and-calorie-counter-for-smartphones",
+            "start_date": "",
+            "end_date": "",
+            "apply_offer": false,
+            "free_shipping": false,
+            "discount": false,
+            "discount_type": "percentage",
+            "media_size": "medium",
+            "media_position": "left",
+            "show_title": true,
+            "title_size": "h1",
+            "show_price": true,
+            "show_variant_picker": true,
+            "picker_type": "button",
+            "swatch_shape": "circle",
+            "show_quantity_selector": true,
+            "show_buy_button": true,
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
         }
       },
       "block_order": [
-        "dynamic_block_xKrLmE"
+        "dynamic_block_xKrLmE",
+        "dynamic_block_CYbqRb"
       ],
       "name": "Dynamic section",
       "settings": {}
