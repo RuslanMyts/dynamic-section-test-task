@@ -26,7 +26,7 @@
 
   if block.settings.apply_offer == true and block.settings.offer_type == "discount"
     if discount_type != blank
-        if compare_at_price != blank
+        if compare_at_price == blank
             assign compare_at_price = price
         endif
 
