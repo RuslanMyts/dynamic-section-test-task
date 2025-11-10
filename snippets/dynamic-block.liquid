@@ -74,7 +74,9 @@
                         product: dynamic_product,
                         use_variant: true,
                         show_badges: true,
-                        price_class: 'price--large'
+                        price_class: 'price--large',
+                        discount_type: block.settings.discount_type,
+                        discount: block.settings.discount_amount
                         -%}
                     </div>
                     {%- if dynamic_product.quantity_price_breaks_configured? -%}
