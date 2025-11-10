@@ -133,16 +133,13 @@
       {%- endif -%}
     </div>
     {%- if show_badges -%}
-        {% if block.settings.apply_offer == true and block.settings.offer_type == "discount" %}
-            <span class="discount-badge">
-              {% if block.settings.discount_type == "percentage" %}
-                {{ block.settings.discount_amount }}% off
-              {% elsif block.settings.discount_type == "fixed" %}
-                {% assign compare = compare_at_price | minus : price %}
-                {{ compare | money }} off
-              {% endif %}
-            </span>
-        {% endif %}
+      <span class="badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}">
+        {{ 'products.product.on_sale' | t }}
+      </span>
+
+      <span class="badge price__badge-sold-out color-{{ settings.sold_out_badge_color_scheme }}">
+        {{ 'products.product.sold_out' | t }}
+      </span>
     {%- endif -%}
   </div>
 {% endunless %}
