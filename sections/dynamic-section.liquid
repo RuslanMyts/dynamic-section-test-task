@@ -90,23 +90,6 @@
           "default": false
         },
         {
-          "type": "select",
-          "visible_if": "{{ block.settings.apply_offer == true and block.settings.product != blank }}",
-          "id": "offer_type",
-          "options": [
-            {
-              "value": "free_shipping",
-              "label": "Free Shipping"
-            },
-            {
-              "value": "discount",
-              "label": "Discount"
-            }
-          ],
-          "default": "free_shipping",
-          "label": "Offer Type"
-        },
-        {
           "type": "checkbox",
           "id": "free_shipping",
           "label": "Free Shipping",
