@@ -2,9 +2,9 @@
   {% assign dynamic_product = block.settings.product %}
   {% assign content_order = 'media, content' %}
   {% if block.settings.media_position == 'right' %}
-      {% assign content_order = 'content, media' %}
+    {% assign content_order = 'content, media' %}
   {% endif %}
-  {% assign content_order = content_order | split: ", " %}
+  {% assign content_order = content_order | split: ', ' %}
   {%- assign product_form_id = 'product-form-' | append: section.id -%}
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
   {{ 'section-featured-product.css' | asset_url | stylesheet_tag }}
@@ -50,7 +50,7 @@
     {% endif %}
   >
     <div class="dynamic-section-block-item">
-        {% capture block_item_media %}
+      {% capture block_item_media %}
           <div class="dynamic-section-block-item---media">
                 <div class="featured-product product product--{{ block.settings.media_size }} grid grid--1-col gradient product--{{ block.settings.media_position }} {% if dynamic_product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
                 <div class="grid__item product__media-wrapper">
@@ -59,9 +59,9 @@
                 </div>
                 </div>
             </div>
-        {% endcapture %} 
+        {% endcapture %}
 
-        {% capture block_item_content %}
+      {% capture block_item_content %}
             <div class="dynamic-section-block-item---content">
                 {% if block.settings.show_title %}
                 <h2 class="product__title {{ block.settings.title_size }}" {{ block.shopify_attributes }}>
@@ -69,40 +69,40 @@
                 </h2>
                 {% endif %}
                 {% if block.settings.show_price %}
-                <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
-                    {%- render 'price',
-                    product: dynamic_product,
-                    use_variant: true,
-                    show_badges: true,
-                    price_class: 'price--large'
-                    -%}
-                </div>
-                {%- if dynamic_product.quantity_price_breaks_configured? -%}
-                    <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
-                    <span>{{ 'products.product.volume_pricing.note' | t }}</span>
+                    <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+                        {%- render 'price',
+                        product: dynamic_product,
+                        use_variant: true,
+                        show_badges: true,
+                        price_class: 'price--large'
+                        -%}
                     </div>
-                {%- endif -%}
-                {%- if cart.taxes_included or cart.duties_included or shop.shipping_policy.body != blank -%}
-                    <div class="product__tax caption rte">
-                    {%- if cart.duties_included and cart.taxes_included -%}
-                        {{ 'products.product.duties_and_taxes_included' | t }}
-                    {%- elsif cart.taxes_included -%}
-                        {{ 'products.product.taxes_included' | t }}
-                    {%- elsif cart.duties_included -%}
-                        {{ 'products.product.duties_included' | t }}
+                    {%- if dynamic_product.quantity_price_breaks_configured? -%}
+                        <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
+                        <span>{{ 'products.product.volume_pricing.note' | t }}</span>
+                        </div>
                     {%- endif -%}
-                    {%- if shop.shipping_policy.body != blank -%}
-                        {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                    {%- if cart.taxes_included or cart.duties_included or shop.shipping_policy.body != blank -%}
+                        <div class="product__tax caption rte">
+                        {%- if cart.duties_included and cart.taxes_included -%}
+                            {{ 'products.product.duties_and_taxes_included' | t }}
+                        {%- elsif cart.taxes_included -%}
+                            {{ 'products.product.taxes_included' | t }}
+                        {%- elsif cart.duties_included -%}
+                            {{ 'products.product.duties_included' | t }}
+                        {%- endif -%}
+                        {%- if shop.shipping_policy.body != blank -%}
+                            {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                        {%- endif -%}
+                        </div>
                     {%- endif -%}
-                    </div>
-                {%- endif -%}
-                {% endif %}
+                    {% endif %}
                 {% if block.settings.show_variant_picker %}
-                {% render 'product-variant-picker',
-                    product: dynamic_product,
-                    block: block,
-                    product_form_id: product_form_id
-                %}
+                    {% render 'product-variant-picker',
+                        product: dynamic_product,
+                        block: block,
+                        product_form_id: product_form_id
+                    %}
                 {% endif %}
                 {% if block.settings.show_quantity_selector %}
                 <div
@@ -335,14 +335,13 @@
             </div>
         {% endcapture %}
 
-        {% for order_num in content_order %}
-          {% if order_num == "media" %}
-            {{ block_item_media }}
-          {% elsif order_num == "content" %}
-            {{ block_item_content }}
-          {% endif %}
-        {% endfor %}
-
+      {% for order_num in content_order %}
+        {% if order_num == 'media' %}
+          {{ block_item_media }}
+        {% elsif order_num == 'content' %}
+          {{ block_item_content }}
+        {% endif %}
+      {% endfor %}
     </div>
   </product-info>
 
