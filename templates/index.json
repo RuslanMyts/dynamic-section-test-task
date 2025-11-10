@@ -60,11 +60,36 @@
             "show_dynamic_checkout": true,
             "show_gift_card_recipient": true
           }
+        },
+        "dynamic_block_UPU8BN": {
+          "type": "dynamic-block",
+          "settings": {
+            "product": "senbono-2024-new-amoled-smart-watch-with-wireless-make-or-answer-call-full-touch-hd-screen-alway-on-display-clock-custom-dials-sleep-monitor-sport-smartwatch-for-men-step-calories-sport-tracker-smart-watch-for-iphone-a",
+            "start_date": "2025-11-13",
+            "end_date": "2025-11-19",
+            "apply_offer": false,
+            "free_shipping": false,
+            "discount": false,
+            "discount_type": "percentage",
+            "media_size": "medium",
+            "media_position": "left",
+            "show_title": true,
+            "title_size": "h1",
+            "show_price": true,
+            "show_variant_picker": true,
+            "picker_type": "button",
+            "swatch_shape": "circle",
+            "show_quantity_selector": true,
+            "show_buy_button": true,
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
         }
       },
       "block_order": [
         "dynamic_block_xKrLmE",
-        "dynamic_block_CYbqRb"
+        "dynamic_block_CYbqRb",
+        "dynamic_block_UPU8BN"
       ],
       "name": "Dynamic section",
       "settings": {}
