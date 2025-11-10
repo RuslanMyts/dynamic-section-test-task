@@ -30,9 +30,9 @@
     endif
 
     if discount_type == "percentage"
-        assign discount = discount_amount | divided_by : 100
-        assign discount = price | times: discount
-        assign price = price | minus: discount
+        assign discount_rate = discount_amount | divided_by: 100
+        assign discount_value = price | times: discount_rate
+        assign price = price | minus: discount_value 
     elsif discount_type == "fixed"
         assign discount = discount_amount | times : 100
         assign price = price | minus : discount
