@@ -63,6 +63,17 @@
 
       {% capture block_item_content %}
             <div class="dynamic-section-block-item---content">
+                {% if block.settings.apply_offer == true %}
+                    {% assign current_time = 'now' | date: "%Y-%m-%d %H:%M:%S" %}
+                    {% assign end_date = block.settings.end_date %}
+    
+                    <div class="countdown-timer" 
+                        data-current-time="{{ current_time }}" 
+                        data-end-time="{{ end_date }}">
+                    <div class="timer-bar" style="width: 0%; background-color: #f00; height: 5px;"></div>
+                    </div>
+                {% endif %}
+
                 {% if block.settings.show_title %}
                 <h2 class="product__title {{ block.settings.title_size }}" {{ block.shopify_attributes }}>
                     {{ dynamic_product.title | escape }}
@@ -418,4 +429,32 @@
         }
     }
   {% endstyle %}
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const timerContainer = document.querySelector(".countdown-timer");
+        if (!timerContainer) return;
+
+        const timerBar = timerContainer.querySelector(".timer-bar");
+
+        const currentTime = new Date(timerContainer.dataset.currentTime).getTime();
+        const endTime = new Date(timerContainer.dataset.endTime).getTime();
+
+        let now = Date.now();
+        let offset = now - currentTime; // difference between server time and client time
+        let duration = endTime - currentTime;
+
+        function updateBar() {
+            let elapsed = Date.now() - currentTime - offset;
+            let progress = Math.min((elapsed / duration) * 100, 100);
+            timerBar.style.width = progress + "%";
+
+            if (progress < 100) {
+            requestAnimationFrame(updateBar);
+            }
+        }
+
+        updateBar();
+    });
+  </script>
 {% endif %}
