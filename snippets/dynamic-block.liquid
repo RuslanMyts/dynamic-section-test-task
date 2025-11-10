@@ -51,6 +51,7 @@
   >
     {% if block.settings.apply_offer == true %}
         <div
+            id="countdown-{{ block.id }}"
             class="countdown-wrapper"
             data-current-time="{{ 'now' | date: '%Y-%m-%d %H:%M:%S' }}"
             data-end-time="{{ block.settings.end_date }}"
