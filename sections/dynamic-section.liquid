@@ -5,23 +5,14 @@
 
   {% for block in section.blocks %}
     {% assign start = block.settings.start_date | default: '' %}
-    {% assign end = block.settings.end_date | default: 'no limit' %}
-    {% if start != '' %}
-      {% if end == 'no limit' %}
-        {% if start <= current_time %}
-          {% if start < latest_start %}
-            {% assign latest_start = start %}
-            {% assign active_block = block %}
-          {% endif %}
-        {% endif %}
-      {% else %}
+    {% assign end = block.settings.end_date | default: '' %}
+    {% if start != '' and end != '' %}
         {% if start <= current_time and current_time <= end %}
-          {% if start < latest_start %}
+            {% if start < latest_start %}
             {% assign latest_start = start %}
             {% assign active_block = block %}
-          {% endif %}
+            {% endif %}
         {% endif %}
-      {% endif %}
     {% endif %}
   {% endfor %}
 
