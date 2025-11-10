@@ -21,6 +21,7 @@
             "apply_offer": true,
             "offer_type": "discount",
             "discount_type": "percentage",
+            "discount_amount": 20,
             "gift_product": "gift",
             "media_size": "small",
             "media_position": "left",
