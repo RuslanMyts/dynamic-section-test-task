@@ -1,0 +1,326 @@
+<div class="dynamic-section-blocks">
+  {% assign current_time = 'now' | date: '%Y-%m-%d %H:%M:%S' %}
+  {% assign active_block = null %}
+  {% assign latest_start = current_time %}
+
+  {% for block in section.blocks %}
+    {% assign start = block.settings.start_date | default: '' %}
+    {% assign end = block.settings.end_date | default: '' %}
+    {% if start != '' and end != '' %}
+        {% if start <= current_time and current_time <= end %}
+            {% if start < latest_start %}
+            {% assign latest_start = start %}
+            {% assign active_block = block %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {% if active_block %}
+    {% render 'dynamic-block', block: active_block %}
+  {% endif %}
+</div>
+
+{% style %}
+    .dynamic-section-blocks {
+        background: #fcf9f4;
+        padding: 20px 0px;
+    }
+
+    .product-form__buttons .product-form__submit {
+        background: #a94619;
+    }
+
+    .product-form__buttons .product-form__submit span {
+        color: #fcf9f4 !important;
+    }
+
+    .product-form__buttons .product-form__submit::after {
+        box-shadow: none !important;
+    }
+
+    .dynamic-section-blocks .product__title {
+        margin-top: 10px!important;
+    }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Dynamic section",
+  "tag": "section",
+  "class": "dynamic-section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "dynamic-block",
+      "name": "Dynamic block",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Product"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "visible_if": "{{ block.settings.product != blank }}",
+          "id": "start_date",
+          "label": "Start Date",
+          "info": "YY-MM-DD HH:MM:SS"
+        },
+        {
+          "type": "text",
+          "visible_if": "{{ block.settings.product != blank }}",
+          "id": "end_date",
+          "label": "End Date",
+          "info": "YY-MM-DD HH:MM:SS"
+        },
+        {
+          "type": "header",
+          "visible_if": "{{ block.settings.product != blank }}",
+          "content": "Offer"
+        },
+        {
+          "type": "checkbox",
+          "visible_if": "{{ block.settings.product != blank }}",
+          "id": "apply_offer",
+          "label": "Apply offer",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "visible_if": "{{ block.settings.apply_offer == true }}",
+          "id": "free_shipping",
+          "label": "Free Shipping",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "visible_if": "{{ block.settings.apply_offer == true }}",
+          "id": "discount",
+          "label": "Discount",
+          "default": false
+        },
+        {
+          "type": "select",
+          "visible_if": "{{ block.settings.apply_offer == true and block.settings.product != blank and block.settings.discount == true }}",
+          "id": "discount_type",
+          "options": [
+            {
+              "value": "percentage",
+              "label": "Percentage"
+            },
+            {
+              "value": "fixed",
+              "label": "Fixed"
+            }
+          ],
+          "default": "percentage",
+          "label": "Discount type"
+        },
+        {
+          "type": "number",
+          "visible_if": "{{ block.settings.apply_offer == true and block.settings.product != blank and block.settings.discount == true }}",
+          "id": "discount_amount",
+          "label": "Discount Amount"
+        },
+        {
+          "type": "header",
+          "visible_if": "{{ block.settings.product != blank }}",
+          "content": "Media"
+        },
+        {
+          "type": "select",
+          "visible_if": "{{ block.settings.product != blank }}",
+          "id": "media_size",
+          "options": [
+            {
+              "value": "small",
+              "label": "t:sections.main-product.settings.media_size.options__1.label"
+            },
+            {
+              "value": "medium",
+              "label": "t:sections.main-product.settings.media_size.options__2.label"
+            },
+            {
+              "value": "large",
+              "label": "t:sections.main-product.settings.media_size.options__3.label"
+            }
+          ],
+          "default": "medium",
+          "label": "t:sections.main-product.settings.media_size.label"
+        },
+        {
+          "type": "select",
+          "visible_if": "{{ block.settings.product != blank }}",
+          "id": "media_position",
+          "options": [
+            {
+              "value": "left",
+              "label": "t:sections.featured-product.settings.media_position.options__1.label"
+            },
+            {
+              "value": "right",
+              "label": "t:sections.featured-product.settings.media_position.options__2.label"
+            }
+          ],
+          "default": "left",
+          "label": "t:sections.featured-product.settings.media_position.label"
+        },
+        {
+          "type": "header",
+          "visible_if": "{{ block.settings.product != blank }}",
+          "content": "Title"
+        },
+        {
+          "type": "checkbox",
+          "visible_if": "{{ block.settings.product != blank }}",
+          "id": "show_title",
+          "label": "Show title",
+          "default": true
+        },
+        {
+          "type": "select",
+          "visible_if": "{{ block.settings.show_title == true and block.settings.product != blank  }}",
+          "id": "title_size",
+          "options": [
+            {
+              "value": "h2",
+              "label": "t:sections.all.heading_size.options__1.label"
+            },
+            {
+              "value": "h1",
+              "label": "t:sections.all.heading_size.options__2.label"
+            },
+            {
+              "value": "h0",
+              "label": "t:sections.all.heading_size.options__3.label"
+            },
+            {
+              "value": "hxl",
+              "label": "t:sections.all.heading_size.options__4.label"
+            },
+            {
+              "value": "hxxl",
+              "label": "t:sections.all.heading_size.options__5.label"
+            }
+          ],
+          "default": "h1",
+          "label": "Title Size"
+        },
+        {
+          "type": "header",
+          "visible_if": "{{ block.settings.product != blank }}",
+          "content": "Price"
+        },
+        {
+          "type": "checkbox",
+          "visible_if": "{{ block.settings.product != blank }}",
+          "id": "show_price",
+          "label": "Show price",
+          "default": true
+        },
+        {
+          "type": "header",
+          "visible_if": "{{ block.settings.product != blank }}",
+          "content": "Variant Picker"
+        },
+        {
+          "type": "checkbox",
+          "visible_if": "{{ block.settings.product != blank }}",
+          "id": "show_variant_picker",
+          "label": "Show variant picker",
+          "default": true
+        },
+        {
+          "type": "select",
+          "visible_if": "{{ block.settings.show_variant_picker == true and block.settings.product != blank }}",
+          "id": "picker_type",
+          "options": [
+            {
+              "value": "dropdown",
+              "label": "t:sections.featured-product.blocks.variant_picker.settings.picker_type.options__1.label"
+            },
+            {
+              "value": "button",
+              "label": "t:sections.featured-product.blocks.variant_picker.settings.picker_type.options__2.label"
+            }
+          ],
+          "default": "button",
+          "label": "t:sections.featured-product.blocks.variant_picker.settings.picker_type.label"
+        },
+        {
+          "id": "swatch_shape",
+          "visible_if": "{{ block.settings.show_variant_picker == true and block.settings.product != blank }}",
+          "label": "t:sections.featured-product.blocks.variant_picker.settings.swatch_shape.label",
+          "type": "select",
+          "info": "t:sections.featured-product.blocks.variant_picker.settings.swatch_shape.info",
+          "options": [
+            {
+              "value": "circle",
+              "label": "t:sections.featured-product.blocks.variant_picker.settings.swatch_shape.options__1.label"
+            },
+            {
+              "value": "square",
+              "label": "t:sections.featured-product.blocks.variant_picker.settings.swatch_shape.options__2.label"
+            },
+            {
+              "value": "none",
+              "label": "t:sections.main-product.blocks.variant_picker.settings.swatch_shape.options__3.label"
+            }
+          ],
+          "default": "circle"
+        },
+        {
+          "type": "header",
+          "visible_if": "{{ block.settings.product != blank }}",
+          "content": "Quantity Selector"
+        },
+        {
+          "type": "checkbox",
+          "visible_if": "{{ block.settings.product != blank }}",
+          "id": "show_quantity_selector",
+          "label": "Show quantity selector",
+          "default": true
+        },
+        {
+          "type": "header",
+          "visible_if": "{{ block.settings.product != blank }}",
+          "content": "Buy Button"
+        },
+        {
+          "type": "checkbox",
+          "visible_if": "{{ block.settings.product != blank }}",
+          "id": "show_buy_button",
+          "label": "Show Buy button",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "visible_if": "{{ block.settings.show_buy_button == true and block.settings.product != blank }}",
+          "id": "show_dynamic_checkout",
+          "default": true,
+          "label": "t:sections.featured-product.blocks.buy_buttons.settings.show_dynamic_checkout.label",
+          "info": "t:sections.featured-product.blocks.buy_buttons.settings.show_dynamic_checkout.info"
+        },
+        {
+          "type": "checkbox",
+          "visible_if": "{{ block.settings.show_buy_button == true and block.settings.product != blank }}",
+          "id": "show_gift_card_recipient",
+          "default": true,
+          "label": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.label",
+          "info": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.info"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dynamic section"
+    }
+  ]
+}
+{% endschema %}
